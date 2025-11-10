@@ -38,7 +38,7 @@ def drink_detail(request, id):
         return Response(serializer.data)
     
     elif request.method == 'PUT':
-        serializer = DrinkSerializer(data=request.data)
+        serializer = DrinkSerializer(oneDrink, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -46,4 +46,5 @@ def drink_detail(request, id):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'DELETE':
-        pass
+        oneDrink.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
